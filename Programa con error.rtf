@@ -1,0 +1,615 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 CLASE REGISTRO\
+\
+\
+package frames;\
+\
+import bd1.Conexion;\
+import java.awt.Image;\
+import java.awt.event.ActionEvent;\
+import java.awt.event.ActionListener;\
+import java.awt.event.FocusEvent;\
+import java.awt.event.FocusListener;\
+import javax.swing.ImageIcon;\
+import javax.swing.JButton;\
+import javax.swing.JFrame;\
+import javax.swing.JLabel;\
+import javax.swing.JOptionPane;\
+import javax.swing.JPasswordField;\
+import javax.swing.JTextField;\
+import java.awt.Color;\
+import java.sql.SQLException;\
+import java.util.logging.Level;\
+import java.util.logging.Logger;\
+\
+\
+public class Registro extends JFrame implements ActionListener, FocusListener\{\
+    JLabel lblMsj, lblUser, lblPass, lblNom, lblApp, lblEdad, lblSex, lblCorreo;\
+    JTextField usuario, nombre, appapm, edad, sexo, correo;\
+    JButton salida, continuar, modulo, fondod, fondoiz;\
+    JPasswordField txtPass;\
+    Conexion Conn;\
+    \
+    public Registro (String title)\{\
+        super(title);\
+        Conn = new Conexion("Usuario", "Luis", "1234");\
+        initLabel();\
+        initTextField();\
+        initPasswordFields();\
+        initButton();\
+        addComponents();\
+        initFrame();\
+    \}\
+    private void initFrame()\{\
+        this.setBounds(0,0,1450, 800);\
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\
+        this.setLocationRelativeTo(null);\
+        this.setLayout(null);\
+        this.setVisible(true);\
+    \}\
+    \
+    \
+    private void initLabel()\{\
+        lblMsj = new JLabel();\
+        lblMsj.setText("Registro");\
+        lblMsj.setBounds(685, 150, 1500, 15);\
+        \
+        lblUser = new JLabel();\
+        lblUser.setText("ID");\
+        lblUser.setBounds(620, 200, 150, 15);\
+        \
+        lblPass = new JLabel();\
+        lblPass.setText("Contrase\'f1a");\
+        lblPass.setBounds(620, 250, 150, 15);\
+        \
+        lblNom = new JLabel();\
+        lblNom.setText("Nombre");\
+        lblNom.setBounds(620, 300, 150, 15);\
+        \
+        lblApp = new JLabel();\
+        lblApp.setText("Apellidos");\
+        lblApp.setBounds(620, 350, 150, 15);\
+        \
+        \
+        lblEdad = new JLabel();\
+        lblEdad.setText("Edad");\
+        lblEdad.setBounds(620, 400, 150, 15);\
+        \
+        lblSex = new JLabel();\
+        lblSex.setText("Sexo: M/F");\
+        lblSex.setBounds(620, 450, 150, 15);\
+        \
+        lblCorreo = new JLabel();\
+        lblCorreo.setText("Correo");\
+        lblCorreo.setBounds(620, 500, 150, 15);\
+        \
+    \
+    \}\
+    \
+    private void addComponents()\{\
+        getContentPane().add(lblMsj);\
+        getContentPane().add(salida);\
+        getContentPane().add(continuar);\
+        getContentPane().add(modulo);\
+        getContentPane().add(fondod);\
+        getContentPane().add(fondoiz);\
+        getContentPane().add(usuario);\
+        getContentPane().add(txtPass);\
+        getContentPane().add(nombre);\
+        getContentPane().add(appapm);\
+        getContentPane().add(edad);\
+        getContentPane().add(sexo);\
+        getContentPane().add(correo);\
+        this.add(lblUser);\
+        this.add(lblPass);\
+        this.add(lblNom);\
+        this.add(lblEdad);\
+        this.add(lblApp);\
+        this.add(lblSex);\
+        this.add(lblCorreo);\
+    \}\
+    \
+    private void initTextField()\{\
+        usuario = new JTextField();\
+        usuario.setForeground(Color.GRAY);\
+        usuario.setText("Nuevo N. Control");\
+        usuario.setBounds(700, 200, 150, 15);\
+        usuario.addFocusListener(this);\
+        //registrar en la base\
+        \
+        txtPass = new JPasswordField();\
+        txtPass.setForeground(Color.GRAY);\
+        txtPass.setText("Nueva Contrasena");\
+        txtPass.setBounds(700, 250, 150, 15);\
+        txtPass.addFocusListener(this);\
+        //registrar en la base\
+        \
+        nombre = new JTextField();\
+        nombre.setForeground(Color.GRAY);\
+        nombre.setText("Nombre(s)");\
+        nombre.setBounds(700, 300, 150, 15);\
+        nombre.addFocusListener(this);\
+        //registrar en la base\
+        \
+        appapm = new JTextField();\
+        appapm.setForeground(Color.GRAY);\
+        appapm.setText("Apellidos");\
+        appapm.setBounds(700, 350, 150, 15);\
+        appapm.addFocusListener(this);\
+        \
+        edad = new JTextField();\
+        edad.setForeground(Color.GRAY);\
+        edad.setText("Edad");\
+        edad.setBounds(700, 400, 150, 15);\
+        edad.addFocusListener(this);\
+        //registrar en la base\
+        \
+        sexo = new JTextField();\
+        sexo.setForeground(Color.GRAY);\
+        sexo.setText("Sexo");\
+        sexo.setBounds(700, 450, 150, 15);\
+        sexo.addFocusListener(this);\
+        //registrar en la base\
+        \
+        correo = new JTextField();\
+        correo.setForeground(Color.GRAY);\
+        correo.setText("Correo");\
+        correo.setBounds(700, 500, 150, 15);\
+        correo.addFocusListener(this);\
+        //registrar en la base\
+        \
+    \}\
+    \
+    private void  initButton()\{\
+        salida = new JButton();\
+        salida.setBounds (50, 650,100,100);\
+        ImageIcon images = new ImageIcon ("salida2.png");\
+        salida.setIcon(new ImageIcon(images.getImage().getScaledInstance(salida.getWidth(), salida.getHeight(), Image.SCALE_SMOOTH)));\
+        salida.addActionListener(this);\
+        \
+        modulo = new JButton();\
+        modulo.setBounds (660, 650,100,100);\
+        ImageIcon imagem = new ImageIcon ("mod.png");\
+        modulo.setIcon(new ImageIcon(imagem.getImage().getScaledInstance(modulo.getWidth(), modulo.getHeight(), Image.SCALE_SMOOTH)));\
+        modulo.addActionListener(this);\
+        \
+        continuar = new JButton();\
+        continuar.setBounds (1300, 650,100,100);\
+        ImageIcon imagec = new ImageIcon ("continuar.png");\
+        continuar.setIcon(new ImageIcon(imagec.getImage().getScaledInstance(continuar.getWidth(), continuar.getHeight(), Image.SCALE_SMOOTH)));\
+        continuar.addActionListener(this);\
+        \
+        fondod = new JButton();\
+        fondod.setBounds (200, 150,300,400);\
+        ImageIcon imaged = new ImageIcon ("fondord.png");\
+        fondod.setIcon(new ImageIcon(imaged.getImage().getScaledInstance(fondod.getWidth(), fondod.getHeight(), Image.SCALE_SMOOTH)));\
+        fondod.addActionListener(this);\
+        \
+        fondoiz = new JButton();\
+        fondoiz.setBounds (950,150,300,400);\
+        ImageIcon imagei = new ImageIcon ("fondoiz.png");\
+        fondoiz.setIcon(new ImageIcon(imagei.getImage().getScaledInstance(fondoiz.getWidth(), fondoiz.getHeight(), Image.SCALE_SMOOTH)));\
+        fondoiz.addActionListener(this);\
+          \
+    \}\
+\
+    private void initPasswordFields()\
+    \{\
+        txtPass = new JPasswordField(16);\
+        txtPass.setForeground(Color.GRAY);\
+        txtPass.setText("Nueva Contrasena");\
+        txtPass.setBounds(700, 250, 150, 15);\
+        txtPass.addFocusListener(this);\
+    \}\
+    \
+    private void setEnfoqueTF(JTextField tf, String ini)\
+    \{\
+        if (tf.getText().equals(ini))\
+        \{\
+            tf.setText("");\
+            tf.setForeground(Color.BLACK);\
+        \}\
+    \}\
+    \
+    private void setDesenfoqueTF(JTextField tf, String ini)\
+    \{\
+        if (tf.getText().isEmpty())\
+        \{\
+            tf.setForeground(Color.GRAY);\
+            \
+            tf.setText(ini);\
+        \}\
+    \}\
+\
+    public void limpiar()\{\
+        usuario.setForeground(Color.GRAY);\
+        usuario.setText("Nuevo N Control");\
+        txtPass.setForeground(Color.GRAY);\
+        txtPass.setText("Nueva Contrase\'f1a");\
+        nombre.setForeground(Color.GRAY);\
+        nombre.setText("Nombre(s)");\
+        appapm.setForeground(Color.GRAY);\
+        appapm.setText("Apellidos");\
+        correo.setForeground(Color.GRAY);\
+        correo.setText("Correo");\
+        edad.setForeground(Color.GRAY);\
+        edad.setText("Edad");\
+        sexo.setForeground(Color.GRAY);\
+        sexo.setText("Sexo");\
+    \}\
+    \
+    @Override\
+    public void actionPerformed(ActionEvent e) \{ EL ERROR EST\'c1 AQU\'cd\
+        if (e.getSource() == continuar)\
+        \{\
+            if (!(usuario.getText().equals("") \
+                    || txtPass.getText().equals("") || nombre.getText().equals("")\
+                    || appapm.getText().equals("") || edad.getText().equals("") || sexo.getText().equals("")\
+                    || correo.getText().equals("")));\
+            \{\
+                try\
+                \{\
+                    Conn.abrirConexion();\
+                    Conn.insertarComando("Registro", new String[]\
+                    \{\
+                        "usuario", "contrase\'f1a", "nombre", "appellidos", "edad", "sexo", "correo"\
+                    \});\
+                    Conn.asignarParametros(1, new String[]\
+                    \{\
+                        nombre.getText(), appapm.getText(), edad.getText(), usuario.getText(), txtPass.getText(), sexo.getText(), correo.getText()\
+                    \});\
+                    Conn.ejecutarComando();\
+                    JOptionPane.showMessageDialog(this, "El registro ha quedado guardado",\
+                            "Guardado Exitoso", JOptionPane.INFORMATION_MESSAGE);\
+                    dispose();\
+                \}\
+                catch (SQLException ex)\
+                \{\
+                    Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);\
+                \}\
+                catch (ClassNotFoundException ex)\
+                \{\
+                    Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);\
+                \}\
+                finally\
+                \{\
+                    try\
+                    \{\
+                        Conn.cerrarConexion();\
+                    \}\
+                    catch (SQLException ex)\
+                    \{\
+                        Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);\
+                    \}\
+                \}\
+            \}\
+            \}else\
+            \{\
+                JOptionPane.showMessageDialog(null, "Hay campos vacios o sin seleccionar",\
+                        "Alerta", JOptionPane.WARNING_MESSAGE);\
+            \}\
+        \
+        if (e.getSource().equals(salida))\{\
+            dispose();\
+            new Bienvenida("Bienvenid@ al dispensador de E. P. Aux. y M\'f3dulo de informaci\'f3n").setVisible(true);\
+        \}\
+    \
+        if (e.getSource().equals(continuar))\{\
+            dispose();\
+            new Bienvenida("Bienvenid@ al dispensador de E. P. Aux. y M\'f3dulo de informaci\'f3n").setVisible(true);\
+        \}\
+        \
+        if (e.getSource().equals(modulo))\{\
+            dispose();\
+            new Modulodein("M\'f3dulo de informaci\'f3n y prevenci\'f3n").setVisible(true);\
+        \}\
+    \}\
+    @Override\
+    public void focusGained(FocusEvent e)\
+    \{\
+        if (e.getSource().equals(usuario))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Nuevo N Control");\
+        \}\
+        if (e.getSource().equals(txtPass))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Nueva Contrase\'f1a");\
+        \}\
+        if (e.getSource().equals(nombre))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Nombre(s)");\
+        \}\
+        if (e.getSource().equals(appapm))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Apellidos");\
+        \}\
+        if (e.getSource().equals(edad))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Edad");\
+        \}\
+        if (e.getSource().equals(sexo))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Sexo");\
+        \}\
+                if (e.getSource().equals(correo))\
+        \{\
+            setEnfoqueTF((JTextField) e.getSource(), "Correo");\
+    \}\
+    \}\
+    @Override\
+    public void focusLost(FocusEvent e)\
+    \{\
+        if (e.getSource().equals(usuario))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Nuevo Usuario");\
+        \}\
+        if (e.getSource().equals(txtPass))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Nueva Contrase\'f1a");\
+        \}\
+        if (e.getSource().equals(nombre))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Nombre(s)");\
+        \}\
+        if (e.getSource().equals(appapm))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Apellidos");\
+        \}\
+        if (e.getSource().equals(edad))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Edad");\
+        \}\
+        if (e.getSource().equals(sexo))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Sexo");\
+        \}\
+        if (e.getSource().equals(correo))\
+        \{\
+            setDesenfoqueTF((JTextField) e.getSource(), "Correo");\
+        \}\
+    \}\
+\}\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+CLASE CONEXION\
+\
+package bd1;\
+import java.sql.*;\
+public class Conexion\
+\{\
+    private Connection conn;\
+    private String BaseDatos;\
+    private String user;\
+    private String psswd;\
+    private String host;\
+    private PreparedStatement sql;\
+\
+    public Conexion(String BaseDatos, String user, String psswd)\
+    \{\
+        this.BaseDatos = BaseDatos;\
+        this.user = user;\
+        this.psswd = psswd;\
+        this.host = "127.0.0.1:3308";\
+    \}\
+\
+    public Conexion(String BaseDatos, String user, String psswd, String host)\
+    \{\
+        this.BaseDatos = BaseDatos;\
+        this.user = user;\
+        this.psswd = psswd;\
+        this.host = host;\
+    \}\
+\
+    public Connection abrirConexion() throws SQLException, ClassNotFoundException\
+    \{\
+        //Se registra el driver de mysql el que se agrego a la libreria\
+        Class.forName("com.mysql.jc.jdbc.Driver");\
+        //Conectar a la base de datos\
+        setConn(DriverManager.getConnection("jdbc:mysql://" + host + "/"\
+                + this.getBaseDatos(), this.getUser(), this.getPsswd()));\
+        return this.getConn();\
+    \}\
+\
+    public void cerrarConexion() throws SQLException\
+    \{\
+        getConn().close();\
+    \}\
+\
+    private void crearComando(String query) throws SQLException\
+    \{\
+        sql = getConn().prepareStatement(query);\
+    \}\
+\
+    public void asignarParametro(int index, Object field) throws SQLException\
+    \{\
+        asignarParametros(index, new Object[]\
+        \{\
+            field\
+        \});\
+    \}\
+\
+    public void asignarParametros(int index, Object[] field) throws SQLException\
+    \{\
+        for (int i = 0; i < field.length; i++, index++)\
+        \{\
+            sql.setObject(index, field[i]);\
+        \}\
+    \}\
+\
+    public void insertarComando(String table, String[] fields) throws SQLException\
+    \{\
+        String comando = "insert into " + table + " (";\
+        for (int i = 0; i < fields.length; i++)\
+        \{\
+            if (i != 0)\
+            \{\
+                comando += ",";\
+            \}\
+            comando += fields[i];\
+        \}\
+        comando += ") values (";\
+        for (int i = 0; i < fields.length; i++)\
+        \{\
+            if (i != 0)\
+            \{\
+                comando += ", ";\
+            \}\
+            comando += "?";\
+        \}\
+        comando += ")";\
+        crearComando(comando);\
+    \}\
+\
+    public void consultarComando(String table) throws SQLException\
+    \{\
+        consultarComando(table, new String[]\
+        \{\
+            "*"\
+        \}, "");\
+    \}\
+\
+    public void consultarComando(String table, String where) throws SQLException\
+    \{\
+        consultarComando(table, new String[]\
+        \{\
+            "*"\
+        \}, where);\
+    \}\
+\
+    public void consultarComando(String table, String fields[]) throws SQLException\
+    \{\
+        consultarComando(table, fields, "");\
+    \}\
+\
+    public void consultarComando(String table, String fields[], String where) throws SQLException\
+    \{\
+        String comando = "select ";\
+        for (int i = 0; i < fields.length; i++)\
+        \{\
+            if (i != 0)\
+            \{\
+                comando += ", ";\
+            \}\
+            comando += fields[i];\
+        \}\
+        comando += " from " + table;\
+        if (!where.equals(""))\
+        \{\
+            comando += " where " + where;\
+        \}\
+        crearComando(comando);\
+    \}\
+\
+    public void actualizarComando(String table, String fields[], String[] values) throws SQLException\
+    \{\
+        actualizarComando(table, fields, "");\
+    \}\
+\
+    public void eliminarComando(String table) throws SQLException\
+    \{\
+        eliminarComando(table, "");\
+    \}\
+\
+    public void eliminarComando(String table, String where) throws SQLException\
+    \{\
+        String comando = "delete from " + table;\
+        if (!where.equals(""))\
+        \{\
+            comando += " where " + where;\
+        \}\
+        crearComando(comando);\
+    \}\
+\
+    public void actualizarComando(String table, String fields[], String where) throws SQLException\
+    \{\
+        String comando = "update " + table + " set ";\
+        for (int i = 0; i < fields.length; i++)\
+        \{\
+            if (i != 0)\
+            \{\
+                comando += ", ";\
+            \}\
+            comando += fields[i] + " = ?";\
+        \}\
+        if (!where.equals(""))\
+        \{\
+            comando += " where " + where;\
+        \}\
+        crearComando(comando);\
+    \}\
+\
+    public ResultSet ejecutarConsulta() throws SQLException\
+    \{\
+        return sql.executeQuery();\
+    \}\
+\
+    public void ejecutarComando() throws SQLException\
+    \{\
+        sql.executeUpdate();\
+    \}\
+\
+    public String getBaseDatos()\
+    \{\
+        return BaseDatos;\
+    \}\
+\
+    public String getUser()\
+    \{\
+        return user;\
+    \}\
+\
+    public String getPsswd()\
+    \{\
+        return psswd;\
+    \}\
+\
+    public Connection getConn()\
+    \{\
+        return conn;\
+    \}\
+\
+    private void setConn(Connection conn)\
+    \{\
+        this.conn = conn;\
+    \}\
+\}\
+\
+\
+}
